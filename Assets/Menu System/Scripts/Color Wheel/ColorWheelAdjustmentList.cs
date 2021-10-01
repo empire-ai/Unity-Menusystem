@@ -5,15 +5,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using VoyagerController.UI;
 
-public class ColorWheelAdjustmentButtons : MonoBehaviour
+public class ColorWheelAdjustmentList : MonoBehaviour
 {
-    [SerializeField] ToggleGroup MovementGroup;
+    [SerializeField] ListPicker MovementSelection;
 
-    public void OnToggleChanged()
+    public void OnSelectionChanged()
     {
-        Toggle activeToggle = MovementGroup.ActiveToggles().First();
+        string selected = MovementSelection.Selected;
 
-        switch (activeToggle.name)
+        switch (selected)
         {
             case "Snap":
                 ColorWheelEventSystem.Movement = MovementType.Snap;
