@@ -1,5 +1,5 @@
 using System;
-using DigitalSputnik.Colors;
+using MenuSystem.Colors;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;

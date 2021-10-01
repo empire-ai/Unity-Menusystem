@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.digitalsputnik.core": "file:C:/Users/Joosep/Dropbox/My PC (DESKTOP-75ATOLN)/Desktop/DigitalSputnik.Core",
     "com.unity.2d.animation": "5.0.4",
     "com.unity.2d.pixel-perfect": "4.0.1",
     "com.unity.2d.psdimporter": "4.0.2",

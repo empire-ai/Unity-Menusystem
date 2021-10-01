@@ -1,4 +1,4 @@
-using DigitalSputnik.Colors;
+using MenuSystem.Colors;
 using UnityEngine;
 using UnityEngine.UI;
 using VoyagerController.UI;

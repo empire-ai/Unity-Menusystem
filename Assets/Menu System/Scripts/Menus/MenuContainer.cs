@@ -6,6 +6,8 @@ namespace VoyagerController.UI
 {
     public class MenuContainer : MonoBehaviour
     {
+        public static MenuContainer Instance;
+
         [SerializeField] private Transform _container    = null;
         [SerializeField] private Menu _startMenu         = null;
 
@@ -14,6 +16,8 @@ namespace VoyagerController.UI
 
         internal virtual void Start()
         {
+            Instance = this;
+
             FetchMenus();
 
             if (_startMenu != null)
@@ -33,16 +37,19 @@ namespace VoyagerController.UI
             Menus = menus.ToArray();
         }
 
-        public virtual void ShowMenu(Menu menu)
+        public static void ShowMenu(Menu menu)
         {
-            if (menu == Current) return;
+            if (menu == Instance.Current) return;
 
-            Menus
+            if (Instance.Current != null)
+                Instance.Current.Open = false;
+
+            Instance.Menus
                 .Where(m => m.Open)
                 .ToList()
                 .ForEach(m => m.Open = false);
-            
-            Current = menu;
+
+            Instance.Current = menu;
             
             if (menu) menu.Open = true;
         }

@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.digitalsputnik.core": {
-      "version": "file:C:/Users/Joosep/Dropbox/My PC (DESKTOP-75ATOLN)/Desktop/DigitalSputnik.Core",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
-    },
     "com.unity.2d.animation": {
       "version": "5.0.4",
       "depth": 0,

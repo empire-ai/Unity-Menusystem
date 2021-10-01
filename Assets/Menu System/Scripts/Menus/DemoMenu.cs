@@ -1,6 +1,3 @@
-using System;
-using Unity;
-
 namespace VoyagerController.UI
 {
     public class DemoMenu : Menu

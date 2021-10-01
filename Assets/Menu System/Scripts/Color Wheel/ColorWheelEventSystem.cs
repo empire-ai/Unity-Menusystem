@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections;
-using DigitalSputnik.Colors;
+using MenuSystem.Colors;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace VoyagerController.UI
 {
-    public class ColorWheelEventSystem : MonoBehaviour, IPointerClickHandler, IDragHandler
+    public class ColorWheelEventSystem : MonoBehaviour, IPointerClickHandler, IDragHandler, IPointerDownHandler, IPointerUpHandler
     {
         public event HueSaturationHandler OnHueSaturationChanged;
 
         [SerializeField] private RectTransform _cursor = null;
         [SerializeField] private Vector2[] _snappingPoints = null;
-        [SerializeField] private Joystick _joystick = null;
+        [SerializeField] private FloatingJoystick _joystick = null;
         [SerializeField] private float _joystickSpeed = 0.0f;
         [SerializeField] private Image _wheelImage = null;
+
+        public static MovementType Movement = MovementType.Snap;
 
         private RectTransform _rect;
         private Vector2 _previousRectDimensions;
@@ -81,18 +83,63 @@ namespace VoyagerController.UI
             _wheelImage.color = Temperature.Apply(Color.white, itshe.T);
         }
 
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Middle || Movement == MovementType.Joystick)
+                _joystick.OnPointerUp(eventData);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Middle || Movement == MovementType.Joystick)
+                _joystick.OnPointerDown(eventData);
+        }
+
         public void OnDrag(PointerEventData eventData)
         {
             var multiplier = _rect.rect.width / ActualSize.x;
             var point = eventData.position - (Vector2)_rect.position;
-            SetCursorToClosestPoint(point * multiplier);
+
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                switch (Movement)
+                {
+                    case MovementType.Snap:
+                        SetCursorToClosestPoint(point * multiplier);
+                        break;
+                    case MovementType.Joystick:
+                        _joystick.OnDrag(eventData);
+                        break;
+                    case MovementType.Free:
+                        FreeMoveCursor(point * multiplier);
+                        break;
+                }
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right) 
+                FreeMoveCursor(point * multiplier);
+            else if (eventData.button == PointerEventData.InputButton.Middle)
+                _joystick.OnDrag(eventData);
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
             var multiplier = _rect.rect.width / ActualSize.x;
             var point = eventData.position - (Vector2)_rect.position;
-            SetCursorToClosestPoint(point * multiplier);
+
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                switch (Movement)
+                {
+                    case MovementType.Snap:
+                        SetCursorToClosestPoint(point * multiplier);
+                        break;
+                    case MovementType.Free:
+                        FreeMoveCursor(point * multiplier);
+                        break;
+                }
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+                FreeMoveCursor(point * multiplier);
         }
 
         private void SetupSnappingPoints()
@@ -139,6 +186,23 @@ namespace VoyagerController.UI
             CalculateHueAndSaturation();
         }
 
+        private void FreeMoveCursor(Vector2 position)
+        {
+            var radius = _rect.rect.width / 2.0f;
+            Vector2 center = transform.localPosition;
+            float distance = Vector2.Distance(position, center);
+
+            if (distance > radius)
+            {
+                Vector2 newDistance = position - center;
+                newDistance *= radius / distance;
+                position = center + newDistance;
+            }
+
+            _cursor.localPosition = position;
+            CalculateHueAndSaturation();
+        }
+
         private Vector2 ActualSize
         {
             get
@@ -167,6 +231,13 @@ namespace VoyagerController.UI
                 return (360.0f - angle) / 360.0f;
             }
         }
+    }
+
+    public enum MovementType
+    {
+        Joystick,
+        Snap,
+        Free
     }
 
     public delegate void HueSaturationHandler(float hue, float saturation);

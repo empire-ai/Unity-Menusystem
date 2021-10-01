@@ -16,9 +16,10 @@ public class IconPickerEditor : Editor
         iconPicker.SelectedIndex = EditorGUILayout.Popup(new GUIContent("Button Icon"), iconPicker.SelectedIndex, iconPicker.IconNames);
         
         if (EditorGUI.EndChangeCheck())
+        {
             iconPicker.IconChanged();
-
-        EditorUtility.SetDirty(iconPicker);
+            EditorUtility.SetDirty(iconPicker);
+        }
     }
 }
 #endif

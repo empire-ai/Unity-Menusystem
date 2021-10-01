@@ -1,27 +1,29 @@
-﻿using DigitalSputnik.Colors;
+﻿using MenuSystem.Colors;
 using UnityEngine;
 
 namespace VoyagerController.UI
 {
     public class ColorWheelManager : MonoBehaviour
     {
-        private static ColorWheelManager _instance;
-        private void Awake() => _instance = this;
+        public static ColorWheelManager Instance;
+        private void Awake() => Instance = this;
 
         [SerializeField] private ColorWheelSettings _colorWheelSettings = null;
 
         private ColorWheelHandler _picked;
+        public Menu PreviousMenu;
 
         public static void OpenColorWheel(Itshe itshe, ColorWheelHandler picked)
         {
-            _instance._picked = picked;
-            _instance._colorWheelSettings.SetItsh(itshe);
-            _instance._colorWheelSettings.Open = true;
+            Instance._picked = picked;
+            Instance._colorWheelSettings.SetItsh(itshe);
+            Instance.PreviousMenu = MenuContainer.Instance.Current;
+            MenuContainer.ShowMenu(Instance._colorWheelSettings);
         }
 
         public static void ValuePicked(Itshe itshe)
         {
-            _instance._picked?.Invoke(itshe);
+            Instance._picked?.Invoke(itshe);
         }
     }
 

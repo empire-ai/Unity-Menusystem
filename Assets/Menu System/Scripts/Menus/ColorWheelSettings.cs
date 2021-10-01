@@ -1,4 +1,4 @@
-using DigitalSputnik.Colors;
+using MenuSystem.Colors;
 using UnityEngine;
 
 namespace VoyagerController.UI
@@ -6,7 +6,7 @@ namespace VoyagerController.UI
     public class ColorWheelSettings : Menu
     {
         [SerializeField] private CanvasGroup _colorWheelCanvasGroup = null;
-        [SerializeField] private GameObject _sideMenuContainer = null;
+        [SerializeField] private GameObject _showHideMenu = null;
         [Space(3)]
         [SerializeField] private IntField _intensitySlider = null;
         [SerializeField] private IntField _temperatureSlider = null;
@@ -25,18 +25,22 @@ namespace VoyagerController.UI
             _beginning = new Itshe(itshe.I, itshe.T, itshe.S, itshe.H, itshe.E);
             _itshe = itshe;
 
-            _intensitySlider.SetValue(itshe.I);
-            _temperatureSlider.SetValue(itshe.T);
-            _saturationSlider.SetValue(itshe.S);
-            _hueSlider.SetValue(itshe.H);
+            if (_intensitySlider != null)
+                _intensitySlider.SetValue(itshe.I);
+
+            if (_temperatureSlider != null)
+                _temperatureSlider.SetValue(itshe.T);
+
+            if (_saturationSlider != null)
+                _saturationSlider.SetValue(itshe.S);
+
+            if (_hueSlider != null)
+                _hueSlider.SetValue(itshe.H);
 
             _wheel.SetFromItsh(itshe);
         }
 
-        public void Approve()
-        {
-            _approved = true;
-        }
+        public void Approve() => _approved = true;
 
         public override void Start()
         {
@@ -51,6 +55,8 @@ namespace VoyagerController.UI
 
         internal override void OnShow()
         {
+            _showHideMenu.SetActive(false);
+
             ShowColorWheel();
             SubscribeSliders();
             SubscribeWheel();
@@ -60,6 +66,8 @@ namespace VoyagerController.UI
 
         internal override void OnHide()
         {
+            _showHideMenu.SetActive(true);
+
             HideColorWheel();
             UnsubscribeSliders();
             UnsubscribeWheel();
@@ -79,26 +87,52 @@ namespace VoyagerController.UI
 
         private void SubscribeSliders()
         {
-            _intensitySlider.OnChanged += SliderChanged;
-            _temperatureSlider.OnChanged += SliderChanged;
-            _saturationSlider.OnChanged += SliderChanged;
-            _hueSlider.OnChanged += SliderChanged;
+            if (_intensitySlider != null)
+                _intensitySlider.OnChanged += SliderChanged;
+
+            if (_temperatureSlider != null)
+                _temperatureSlider.OnChanged += SliderChanged;
+
+            if (_saturationSlider != null)
+                _saturationSlider.OnChanged += SliderChanged;
+
+            if (_hueSlider != null)
+                _hueSlider.OnChanged += SliderChanged;
         }
 
         private void UnsubscribeSliders()
         {
-            _intensitySlider.OnChanged -= SliderChanged;
-            _temperatureSlider.OnChanged -= SliderChanged;
-            _saturationSlider.OnChanged -= SliderChanged;
-            _hueSlider.OnChanged -= SliderChanged;
+            if (_intensitySlider != null)
+                _intensitySlider.OnChanged -= SliderChanged;
+
+            if (_temperatureSlider != null)
+                _temperatureSlider.OnChanged -= SliderChanged;
+
+            if (_saturationSlider != null)
+                _saturationSlider.OnChanged -= SliderChanged;
+
+            if (_hueSlider != null)
+                _hueSlider.OnChanged -= SliderChanged;
         }
 
         private void SliderChanged(int value)
         {
-            var i = _intensitySlider.Normalized;
-            var t = _temperatureSlider.Normalized;
-            var s = _saturationSlider.Normalized;
-            var h = _hueSlider.Normalized;
+            float i = 1.0f;
+            float t = 1.0f;
+            float s = 1.0f;
+            float h = 1.0f;
+
+            if (_intensitySlider != null)
+                i = _intensitySlider.Normalized;
+
+            if (_temperatureSlider != null)
+                t = _temperatureSlider.Normalized;
+
+            if (_saturationSlider != null)
+                s = _saturationSlider.Normalized;
+
+            if (_hueSlider != null)
+                h = _hueSlider.Normalized;
 
             _itshe = new Itshe(i, t, s, h, 1.0f);
 
@@ -129,8 +163,13 @@ namespace VoyagerController.UI
             _itshe.H = hue;
 
             UnsubscribeSliders();
-            _saturationSlider.SetValue(saturation);
-            _hueSlider.SetValue(hue);
+
+            if (_saturationSlider != null)
+                _saturationSlider.SetValue(saturation);
+
+            if (_hueSlider != null)
+                _hueSlider.SetValue(hue);
+
             SubscribeSliders();
 
             _changed = true;
@@ -143,14 +182,13 @@ namespace VoyagerController.UI
             _colorWheelCanvasGroup.interactable = true;
             _colorWheelCanvasGroup.blocksRaycasts = true;
 
-            _sideMenuContainer.SetActive(false);
-
             _approved = false;
         }
 
         public void HideMenu()
         {
-            Open = false;
+            MenuContainer.ShowMenu(ColorWheelManager.Instance.PreviousMenu);
+            ColorWheelManager.Instance.PreviousMenu = null;
         }
 
         public void HideColorWheel()
@@ -158,8 +196,6 @@ namespace VoyagerController.UI
             _colorWheelCanvasGroup.alpha = 0.0f;
             _colorWheelCanvasGroup.interactable = false;
             _colorWheelCanvasGroup.blocksRaycasts = false;
-
-            _sideMenuContainer.SetActive(true);
 
             if (!_approved)
                 ColorWheelManager.ValuePicked(_beginning);
