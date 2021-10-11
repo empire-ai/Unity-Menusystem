@@ -1,8 +1,8 @@
-﻿using Unity.Mathematics;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace VoyagerController.UI
+namespace MenuSystem.Components
 {
     public class IntField : MonoBehaviour
     {
@@ -46,7 +46,7 @@ namespace VoyagerController.UI
         public void SetValue(float value)
         {
             var actualValue = ((Max - Min) * value) + Min;
-            var val = (int)math.round(actualValue);
+            var val = (int)Math.Round(actualValue);
             SetValue(val);
         }
     }

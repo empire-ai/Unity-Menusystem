@@ -1,7 +1,8 @@
 ﻿using MenuSystem.Colors;
+using MenuSystem.Menus;
 using UnityEngine;
 
-namespace VoyagerController.UI
+namespace MenuSystem.ColorWheel
 {
     public class ColorWheelManager : MonoBehaviour
     {

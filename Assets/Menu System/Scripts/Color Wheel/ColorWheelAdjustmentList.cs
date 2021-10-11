@@ -1,29 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using MenuSystem.Components;
 using UnityEngine;
-using UnityEngine.UI;
-using VoyagerController.UI;
 
-public class ColorWheelAdjustmentList : MonoBehaviour
+namespace MenuSystem.ColorWheel
 {
-    [SerializeField] ListPicker MovementSelection;
-
-    public void OnSelectionChanged()
+    public class ColorWheelAdjustmentList : MonoBehaviour
     {
-        string selected = MovementSelection.Selected;
+        [SerializeField] ListPicker MovementSelection;
 
-        switch (selected)
+        public void OnSelectionChanged()
         {
-            case "Snap":
-                ColorWheelEventSystem.Movement = MovementType.Snap;
-                break;
-            case "Joystick":
-                ColorWheelEventSystem.Movement = MovementType.Joystick;
-                break;
-            case "Free Movement":
-                ColorWheelEventSystem.Movement = MovementType.Free;
-                break;
+            string selected = MovementSelection.Selected;
+
+            switch (selected)
+            {
+                case "Snap":
+                    ColorWheelEventSystem.Movement = MovementType.Snap;
+                    break;
+                case "Joystick":
+                    ColorWheelEventSystem.Movement = MovementType.Joystick;
+                    break;
+                case "Free Movement":
+                    ColorWheelEventSystem.Movement = MovementType.Free;
+                    break;
+            }
         }
     }
 }

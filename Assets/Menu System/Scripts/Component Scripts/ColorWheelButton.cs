@@ -1,8 +1,10 @@
 ﻿using MenuSystem.Colors;
+using MenuSystem.ColorWheel;
+using MenuSystem.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace VoyagerController.UI
+namespace MenuSystem.Components
 {
     [RequireComponent(typeof(Button))]
     public class ColorWheelButton : MonoBehaviour

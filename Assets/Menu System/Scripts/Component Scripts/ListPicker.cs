@@ -1,8 +1,9 @@
+using MenuSystem.Menus;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace VoyagerController.UI
+namespace MenuSystem.Components
 {
     [RequireComponent(typeof(Button))]
     public class ListPicker : MonoBehaviour

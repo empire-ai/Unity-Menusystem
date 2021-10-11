@@ -1,4 +1,4 @@
-namespace VoyagerController.UI
+namespace MenuSystem.Menus
 {
     public class DemoMenu : Menu
     {

@@ -1,7 +1,9 @@
 using MenuSystem.Colors;
+using MenuSystem.ColorWheel;
+using MenuSystem.Components;
 using UnityEngine;
 
-namespace VoyagerController.UI
+namespace MenuSystem.Menus
 {
     public class ColorWheelSettings : Menu
     {

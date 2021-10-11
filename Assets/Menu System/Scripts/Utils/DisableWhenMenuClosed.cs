@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace VoyagerController.UI
+namespace MenuSystem.Utils
 {
     public class DisableWhenMenuClosed : MonoBehaviour
     {

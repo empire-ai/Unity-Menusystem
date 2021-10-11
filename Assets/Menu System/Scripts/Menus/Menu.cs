@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace VoyagerController.UI
+namespace MenuSystem.Menus
 {
     [RequireComponent(typeof(CanvasGroup))]
     public class Menu : MonoBehaviour

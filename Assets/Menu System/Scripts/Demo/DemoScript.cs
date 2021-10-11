@@ -1,9 +1,9 @@
 using MenuSystem.Colors;
+using MenuSystem.Components;
 using UnityEngine;
 using UnityEngine.UI;
-using VoyagerController.UI;
 
-namespace VoyagerApp
+namespace MenuSystem.Demo
 {
     /* This is a demo script to show how to use the components and get their values in code */
 

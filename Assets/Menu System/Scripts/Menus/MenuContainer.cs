@@ -2,14 +2,14 @@
 using System.Linq;
 using UnityEngine;
 
-namespace VoyagerController.UI
+namespace MenuSystem.Menus
 {
     public class MenuContainer : MonoBehaviour
     {
         public static MenuContainer Instance;
 
         [SerializeField] private Transform _container    = null;
-        [SerializeField] private Menu _startMenu         = null;
+        [SerializeField] public Menu _startMenu         = null;
 
         public Menu Current { get; private set; }
         internal Menu[] Menus;

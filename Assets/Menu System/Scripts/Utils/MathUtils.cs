@@ -1,7 +1,7 @@
 using MenuSystem.Colors;
 using UnityEngine;
 
-namespace VoyagerController
+namespace MenuSystem.Utils
 {
     public static class MathUtils
     {

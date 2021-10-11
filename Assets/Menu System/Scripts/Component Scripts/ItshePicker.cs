@@ -1,11 +1,13 @@
 using System;
 using MenuSystem.Colors;
+using MenuSystem.ColorWheel;
+using MenuSystem.Utils;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace VoyagerController.UI
+namespace MenuSystem.Components
 {
     public class ItshePicker : MonoBehaviour, IPointerClickHandler
     {

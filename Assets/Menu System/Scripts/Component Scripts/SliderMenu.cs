@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using MenuSystem.Menus;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace VoyagerController.UI
+namespace MenuSystem.Components
 {
     public class SliderMenu : Menu
     {
@@ -82,10 +83,10 @@ namespace VoyagerController.UI
             foreach (var value in _presetValues)
             {
                 var index = i;
-                var minmax = (int)math.round(value * (_target.Max - _target.Min) + _target.Min);
+                var minmax = (int)Math.Round(value * (_target.Max - _target.Min) + _target.Min);
                 var preset = Instantiate(_presetButton, _presetsContainer);
                 preset.GetComponentInChildren<Text>().text = $"{minmax}{_target.PresetSuffix}";
-                preset.GetComponent<RectTransform>().sizeDelta = new float2(300.0f, 120.0f);
+                preset.GetComponent<RectTransform>().sizeDelta = new Vector2(300.0f, 120.0f);
                 preset.onClick.AddListener(() => OnPresetClicked(index));
                 _presets.Add(preset);
                 i++;

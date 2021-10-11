@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace VoyagerController.UI
+namespace MenuSystem.Menus
 {
     public class ListPickerMenu : Menu, IPointerDownHandler, IPointerUpHandler
     {

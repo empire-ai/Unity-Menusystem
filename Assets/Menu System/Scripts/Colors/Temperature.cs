@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace VoyagerController
+namespace MenuSystem.Colors
 {
     public static class Temperature
     {

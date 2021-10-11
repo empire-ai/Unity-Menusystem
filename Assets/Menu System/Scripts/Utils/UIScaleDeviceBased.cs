@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace VoyagerController.UI
+namespace MenuSystem.Utils
 {
     [RequireComponent(typeof(CanvasScaler))]
     public class UIScaleDeviceBased : MonoBehaviour

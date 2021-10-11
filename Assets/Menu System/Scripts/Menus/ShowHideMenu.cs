@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using MenuSystem.Utils;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace VoyagerController.UI
+namespace MenuSystem.Menus
 {
     public class ShowHideMenu : MonoBehaviour
     {
