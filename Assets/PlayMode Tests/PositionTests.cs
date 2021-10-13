@@ -28,7 +28,9 @@ public class PositionTests
         var menuContainer = GameObject.FindObjectOfType<MenuContainer>();
         var openClose = GameObject.FindObjectOfType<ShowHideMenu>();
 
+        //Menu should be opened but we check for closed position to fail the test on purpose
+
         Assert.AreEqual(menuContainer.Current.gameObject.transform.localPosition, 
-            new Vector3(openClose.OpenPosition.x, openClose.OpenPosition.y, 0));
+            new Vector3(openClose.ClosePosition.x, openClose.ClosePosition.y, 0));
     }
 }
